@@ -1,5 +1,6 @@
 // Google api needs to be included before this
 
+// Load the Youtube API
 function onLoadFn() {
     // make gapi.client calls
     gapi.client.setApiKey(YOUTUBE_API_KEY);
@@ -10,11 +11,17 @@ function onLoadFn() {
 }
 gapi.load("client", onLoadFn);
 
+// Jquery needs to be included before this
+
+// Setup UI
 $(function () {
     loadSearchBar();
     $('#search-cmd').click(updateResults);
 });
 
+/**
+ * Creates the search bar UI
+ */
 function loadSearchBar () {
     // populate raga list
     var ragalist = [
@@ -77,6 +84,10 @@ function loadSearchBar () {
 
 }
 
+/**
+ * Does a search over the database and updates the
+ * #search-results div with the results
+*/
 function updateResults () {
     $('#search-results').empty();
     var searchCriteria = [];
@@ -125,10 +136,18 @@ function updateResults () {
 
     function addResults (resp) {
 	resp.result.items.forEach(function(viditem) {
-	    var newDiv = $('<div>').text(viditem.snippet.title);
+	    var newDiv = $('<div>').addClass('result-elem');
+	    $('<p>').text(viditem.snippet.title).appendTo(newDiv);
+	    $('<img>').attr({
+		src : viditem.snippet.thumbnails.default.url,
+		width : viditem.snippet.thumbnails.default.width,
+		height : viditem.snippet.thumbnails.default.height
+	    }).appendTo(newDiv);
+	    var newPar = $('<p>');
 	    $('<a>').attr({
 		href : 'https://www.youtube.com/watch?v=' + viditem.id
-	    }).text('watch').appendTo(newDiv);
+	    }).text('watch').appendTo(newPar);
+	    newPar.appendTo(newDiv);
 	    newDiv.appendTo('#search-results');
 	});
     }
