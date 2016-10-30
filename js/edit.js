@@ -10,13 +10,17 @@ function onLoadFn() {
 }
 gapi.load("client", onLoadFn);
 
-function doSearch() {
+function doSearch(pageToken) {
     $('#search-results').empty();
     gapi.client.youtube.search.list({
 	'part' : 'snippet',
-	'q': $('#search-string').val()
+	'q'    : $('#search-string').val(),
+	'type' : 'video',
+	'pageToken' : pageToken
     }).then(function(resp) {
 	console.log(resp.result);
+	updatePrevButton(resp.result.prevPageToken);
+	updateNextButton(resp.result.nextPageToken);
 	updateResults(resp.result.items);
     }, function(reason) {
 	console.log('Error: ' + reason.result.error.message);
@@ -73,6 +77,23 @@ function updateResults(result) {
     });
 }
 
+function updatePrevButton (pageToken) {
+    updatePageButton(pageToken, "<<", "#prev-cmd-holder");
+}
+function updateNextButton (pageToken) {
+    updatePageButton(pageToken, ">>", "#next-cmd-holder");
+}
+function updatePageButton (pageToken, buttontext, buttonid) {
+    $(buttonid).empty();
+    if (pageToken != null) {
+	$('<a>').attr({
+	    href : '#'
+	}).text(buttontext).click(function () {
+	    doSearch(pageToken);
+	}).appendTo(buttonid);
+    }
+}
+
 function updateVideoData (event) {
     var vidArtist = '#video_' + event.data.id + '_artist';
     var vidInstrument = '#video_' + event.data.id + '_instrument';
@@ -88,10 +109,12 @@ $(function() {
     // bind enter to search
     $('#search-string').keypress(function (event) {
 	if (event.which == 13) {
-	    doSearch();
+	    doSearch("");
 	}
     });
 
     // bind click to search
-    $('#search-cmd').click(doSearch);
+    $('#search-cmd').click(function () {
+	doSearch("");	    
+    });
 });
