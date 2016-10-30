@@ -1,0 +1,23 @@
+{
+  "name": "hcmytproj",
+  "version": "0.0.1",
+  "description": "Catalogue of Hindustani Classical Music on Youtube",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debamitro/hcmytproj.git"
+  },
+  "author": "Debamitro Chakraborti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/debamitro/hcmytproj/issues"
+  },
+  "homepage": "https://github.com/debamitro/hcmytproj#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "sqlite3": "^3.1.8"
+  }
+}
