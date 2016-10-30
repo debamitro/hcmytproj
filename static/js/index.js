@@ -110,6 +110,7 @@ function updateResults () {
 	});
     }
 
+/*
     function record_matches (record, searchCriteria) {
 	var has_matched = true;
 
@@ -134,6 +135,22 @@ function updateResults () {
 	id : matching_records.join(',')
     }).then(addResults);
 
+*/
+
+    $.ajax({
+	url : '/videos/search',
+	data : { artist : 'Ali Akbar Khan' }
+    }).done (function (data) {
+        var matching_records = [];
+	data.forEach(function (datum) {
+	    matching_records.push(datum.vid_ytid);
+	});
+	gapi.client.youtube.videos.list({
+	    part : 'snippet',
+	    id : matching_records.join(',')
+	}).then(addResults);
+    });
+    
     function addResults (resp) {
 	resp.result.items.forEach(function(viditem) {
 	    var newDiv = $('<div>').addClass('result-elem');
