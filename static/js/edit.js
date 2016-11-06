@@ -10,7 +10,13 @@ function onLoadFn() {
 }
 gapi.load("client", onLoadFn);
 
-function doSearch(pageToken) {
+/**
+ * Execute the search on youtube using Google's api
+ *
+ * @param pageToken token string for previous/next page
+ * @return void
+ */
+function doYtSearch(pageToken) {
     $('#search-results').empty();
     gapi.client.youtube.search.list({
 	'part' : 'snippet',
@@ -27,6 +33,13 @@ function doSearch(pageToken) {
     });	
 }
 
+/**
+ * Convert the list of responses obtained from a youtube
+ * video search into div's with data entry boxes
+ *
+ * @param result array of objects, each having id and snippet objects
+ * @return void
+ */
 function updateResults(result) {
     result.forEach(function (oneresult) {
 	// create a result entry
@@ -53,20 +66,23 @@ function updateResults(result) {
 	
 	var detailsDiv = $('<div>').addClass('col-sm-8');
 	$('<label>').text('Artist').appendTo(detailsDiv);
-	$('<input>').attr({
+	var inputArtist = $('<input>').attr({
 	    id : 'video_' + oneresult.id.videoId + '_artist'
 	}).appendTo(detailsDiv);
 	$('<label>').text('Instrument').appendTo(detailsDiv);
-	$('<input>').attr({
+	var inputInstrument = $('<input>').attr({
 	    id : 'video_' + oneresult.id.videoId + '_instrument'
 	}).appendTo(detailsDiv);
 	$('<label>').text('Raga').appendTo(detailsDiv);
-	$('<input>').attr({
+	var inputRaga = $('<input>').attr({
 	    id : 'video_' + oneresult.id.videoId + '_raga'
 	}).appendTo(detailsDiv);
 	$('<button>').text('save').click({
 	    id : oneresult.id.videoId,
-	    title : oneresult.snippet.title	    
+	    title : oneresult.snippet.title,
+	    input_artist : inputArtist,
+	    input_instrument : inputInstrument,
+	    input_raga : inputRaga
 	}
 					 ,updateVideoData).appendTo(detailsDiv);
 	detailsDiv.appendTo(rowDiv);
@@ -89,19 +105,22 @@ function updatePageButton (pageToken, buttontext, buttonid) {
 	$('<a>').attr({
 	    href : '#'
 	}).text(buttontext).click(function () {
-	    doSearch(pageToken);
+	    doYtSearch(pageToken);
 	}).appendTo(buttonid);
     }
 }
 
+/**
+ * Receive the data input by the user for a video
+ * and send it to the database. This routine is a click handler
+ *
+ * @param event object sent to click handler
+ */
 function updateVideoData (event) {
-    var vidArtist = '#video_' + event.data.id + '_artist';
-    var vidInstrument = '#video_' + event.data.id + '_instrument';
-    var vidRaga = '#video_' + event.data.id + '_raga';
     console.log({
-	artist : $(vidArtist).val(),
-	instrument : $(vidInstrument).val(),
-	raga : $(vidRaga).val()
+	artist : event.data.input_artist.val(),
+	instrument : event.data.input_instrument.val(),
+	raga : event.data.input_raga.val()
     });	
 }
 
@@ -109,12 +128,12 @@ $(function() {
     // bind enter to search
     $('#search-string').keypress(function (event) {
 	if (event.which == 13) {
-	    doSearch("");
+	    doYtSearch("");
 	}
     });
 
     // bind click to search
     $('#search-cmd').click(function () {
-	doSearch("");	    
+	doYtSearch("");	    
     });
 });
