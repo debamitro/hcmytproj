@@ -121,7 +121,19 @@ function updateVideoData (event) {
 	artist : event.data.input_artist.val(),
 	instrument : event.data.input_instrument.val(),
 	raga : event.data.input_raga.val()
-    });	
+    });
+    $.post('/videos/update',
+	  {
+	    id : event.data.id,
+	    artist : event.data.input_artist.val(),
+	    instrument : event.data.input_instrument.val(),
+	    raga : event.data.input_raga.val()
+	  },
+	   function (data) {
+	       console.log(data);
+	   },
+	   "json"
+	  );
 }
 
 $(function() {
