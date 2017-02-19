@@ -15,6 +15,8 @@ gapi.load("client", onLoadFn);
  *
  * @param pageToken token string for previous/next page
  * @return void
+ *
+ * @todo This needs to fetch data from the database when it exists
  */
 function doYtSearch(pageToken) {
     $('#search-results').empty();

@@ -30,6 +30,8 @@ var sqlite3 = require('sqlite3').verbose();
  *
  * @param query json object sent in request
  * @param res http response object
+ *
+ * @todo This needs to process a query having any or all fields
 */
 function doSearch (query, res) {
     if (query == {}) return {};
