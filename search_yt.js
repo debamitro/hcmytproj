@@ -9,17 +9,18 @@ var secrets = require('./secrets.json');
 function doYtSearch(search_str) {
     ytclient.search.list({
         key : secrets.YOUTUBE_API_KEY,
-	part : 'snippet',
-	q : search_str,
-	type : 'video',
+        part : 'snippet',
+        q : search_str,
+        type : 'video',
+        maxResults : 20
     }, function (err,data) {
-	if (err) {
-	    console.error('Error : ' + err);
-	}
-	if (data) {
-	    //console.log(data.items);
-	    printYtSearchResults(data.items);
-	}
+        if (err) {
+            console.error('Error : ' + err);
+        }
+        if (data) {
+            //console.log(data.items);
+            printYtSearchResults(data.items);
+        }
     });
 }
 
@@ -27,7 +28,8 @@ doYtSearch('raga bhairav');
 
 function printYtSearchResults (results) {
     results.forEach (function (oneresult) {
-	console.log('Title: ' + oneresult.snippet.title);
-	console.log('Description: ' + oneresult.snippet.description);
+        console.log('Id: ' + oneresult.id.videoId);
+        console.log('Title: ' + oneresult.snippet.title);
+        console.log('Description: ' + oneresult.snippet.description);
     });
 }
