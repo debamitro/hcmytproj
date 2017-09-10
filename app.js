@@ -37,16 +37,28 @@ function doSearch (query, res) {
     if (query == {}) return {};
     else {
         console.log(query);
+        var criteriaStrings = [];
+        query.criteria.forEach(function(elem) {
+            if (elem.criterion == 'artist') {
+                criteriaStrings.push("vid_artist=\"" + elem.value + "\"");
+            }
+            else if (elem.criterion == 'raga') {
+                criteriaStrings.push("vid_raga=\"" + elem.value + "\"");
+            }
+            else if (elem.criterion == 'instrument') {
+                criteriaStrings.push("vid_instrument=\"" + elem.value + "\"");
+            }
+            else if (elem.criterion == 'decade') {
+                criteriaStrings.push("vid_decade=\"" + elem.value + "\"");
+            }
+        });
+        var queryString = "SELECT vid_ytid from ytvids where " + criteriaStrings.join(" and ");
         var db = new sqlite3.Database(file);
         var searchres = [];
         db.serialize(function() {
-            var stmt = db.prepare("SELECT vid_ytid from ytvids where vid_artist=?");
-            stmt.each(query.artist, function (err, row) {
-                searchres.push(row);
-            }, function (err, count) {
-                res.json(searchres);
+            db.all(queryString, function (err, rows) {
+                res.json(rows);
             });
-            stmt.finalize(); //stmt cannot be used any more
         });
 
         db.close();

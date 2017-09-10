@@ -65,15 +65,15 @@ function loadSearchBar () {
 
     // populate decade list
     var decadelist = [
-        '1910-1919',
-        '1920-1929',
-        '1930-1939',
-        '1940-1949',
-        '1950-1959',
-        '1960-1969',
-        '1970-1979',
-        '1980-1989',
-        '1990-1999'
+        '1910',
+        '1920',
+        '1930',
+        '1940',
+        '1950',
+        '1960',
+        '1970',
+        '1980',
+        '1990'
     ];
 
     decadelist.forEach(function (decade) {
@@ -109,10 +109,16 @@ function updateResults () {
 	    value :    $('#search-artist').val()
 	});
     }
+    if ($('#search-decade').val() != '') {
+	searchCriteria.push({
+	    criterion : 'decade',
+	    value :    $('#search-decade').val()
+	});
+    }
 
     $.ajax({
 	url : '/videos/search',
-	data : { artist : 'Ali Akbar Khan' }
+	data : { criteria : searchCriteria }
     }).done (function (data) {
         var matching_records = [];
 	data.forEach(function (datum) {
