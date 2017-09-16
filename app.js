@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 var express = require('express');
 var app = express();
 
@@ -54,7 +56,6 @@ function doSearch (query, res) {
         });
         var queryString = "SELECT vid_ytid from ytvids where " + criteriaStrings.join(" and ");
         var db = new sqlite3.Database(file);
-        var searchres = [];
         db.serialize(function() {
             db.all(queryString, function (err, rows) {
                 res.json(rows);
