@@ -1,8 +1,39 @@
-.page-head {
-    text-align: center
+body {
+    font-family: 'Verdana';
+    font-size: 1em;
+}
+
+
+.page-head
+{
+    text-align: center;
+    font-family: 'Lato', 'Lucida Sans Unicode',sans-serif;
+    font-size: 1.4em;
+    color: #555500;
+    background-color: #e0e0e0;
+}
+
+.page-head h1
+{
+    font-size: 2em;
+}
+
+.page-head-underline
+{
+    margin-top:4px;
+    height: 6px;
+    background-color: #000000;
 }
 
 .page-search-bar {
-    text-align: center
+    text-align: center;
+    margin-top:20px;
+    margin-bottom:20px;
+    font-size: .9em;
+    font-family: Arial;
 }
 
+.spacer
+{
+    clear:both;
+}

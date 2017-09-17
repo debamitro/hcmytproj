@@ -10,23 +10,22 @@
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="youtube_client.js"></script>
-    <script src="js/database.js"></script>
     <script src="js/index.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/index.css" />
 
   </head>
   <body>
-    <div class="container-fluid">
+    
+  <div class="full-page-container">
       <div class="page-head">
       <h1>HCMYt</h1>
-	Hindustani Classical Music on Youtube
+      Hindustani Classical Music from the early 20th century till the '90s on Youtube.com,
+      <br> classified by raga, artist, instrument and decade
       </div>
-
+      <div class="page-head-underline"></div>
       <div class="page-search-bar">
 	Raga: <select id="search-raga">
 	  <option value=""></option>
@@ -39,14 +38,13 @@
 	  <option value=""></option>
 	</select>
 	<button id="search-cmd">Search</button>
+        <button id="clear-cmd">Clear</button>
       </div>
 
-      <div class="container">
-	<div id="search-results" class="row">
+	<div id="search-results">
 	</div>
-      </div>
       
-    </div>
+  </div>
   </body>
   
 </html>

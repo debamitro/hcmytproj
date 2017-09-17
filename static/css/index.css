@@ -1,9 +1,52 @@
-// Copied from Bootstrap album example
-.result-elem {
-    float: left;
-    width: 33.33%;
-    padding: 0.75rem;
-    margin-bottom: 2rem;
+.full-page-container
+{
+    width: 900px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#search-results
+{
+    width: 708px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.result-elem
+{
+    font-family: Serif;
+    width: 480px;
+    padding: 10px;
     background-color: #e0e0e0;
-    height: 200px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 5px;
+}
+
+.result-elem-title
+{
+    font-size: 1.5em;
+}
+
+.result-elem-img
+{
+    float:left;
+    width: 30%;
+    height: 100px;
+}
+
+.result-elem-description
+{
+    float: right;
+    width: 68%;
+    height: 100px;
+    overflow: scroll;
+}
+
+.result-elem-ytlink
+{
+    text-decoration: none;
+    color: #101010;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-size: .8em;
 }
