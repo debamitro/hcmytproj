@@ -37,3 +37,16 @@ body {
 {
     clear:both;
 }
+
+.page-bottom-underline
+{
+    margin-top:4px;
+    height: 6px;
+    background-color: #000000;
+}
+
+.footer
+{
+    text-align:center;
+    width: 100%;
+}

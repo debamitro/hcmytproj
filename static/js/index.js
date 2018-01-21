@@ -135,12 +135,16 @@ function updateResults () {
         gapi.client.youtube.videos.list({
             part : 'snippet',
             id : matching_records.join(',')
-        }).then(addResults);
+        }).then(function (resp) {
+            addResults(data, resp);
+        });
     });
     
-    function addResults (resp) {
+    function addResults (data, resp) {
+        var i = 0;
         resp.result.items.forEach(function(viditem) {
             var newDiv = $('<div>').addClass('result-elem');
+            $('<div>').addClass('result-elem-data').text("Decade: " + data[i].vid_decade + " | Instrument: " + data[i].vid_instrument + " | Raga: " + data[i].vid_raga).appendTo(newDiv);
             $('<div>').addClass('result-elem-title').text(viditem.snippet.title).appendTo(newDiv);
             var imgDiv = $('<div>').addClass('result-elem-img');
             $('<img>').attr({
@@ -164,6 +168,7 @@ function updateResults () {
             newLink.appendTo(watchDiv);
             watchDiv.appendTo(newDiv);
             newDiv.appendTo('#search-results');
+            i++;
         });
     }
 }

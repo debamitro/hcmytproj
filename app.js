@@ -54,8 +54,8 @@ function doSearch (query, res) {
                 criteriaStrings.push("vid_decade=\"" + elem.value + "\"");
             }
         });
-        var queryString = "SELECT vid_ytid from ytvids where " + criteriaStrings.join(" and ");
-        var db = new sqlite3.Database(file);
+        var queryString = "SELECT * from ytvids where " + criteriaStrings.join(" and ");
+        var db = new sqlite3.Database(file, sqlite3.OPEN_READONLY);
         db.serialize(function() {
             db.all(queryString, function (err, rows) {
                 res.json(rows);
